@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Grão &amp; Névoa Café | Cafés especiais com torra própria</title>
+<meta name="description" content="Cafeteria de cafés especiais com torra própria, métodos filtrados e confeitaria artesanal. Cada xícara tem uma origem.">
+<meta name="theme-color" content="#24140d">
+<meta property="og:title" content="Grão &amp; Névoa Café">
+<meta property="og:description" content="Cafés especiais com torra própria, métodos filtrados e confeitaria artesanal. Vem tomar um café com calma.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..800;1,9..144,300..800&family=Manrope:wght@300..800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --creme:#F3EBDD; --cafe:#4A2C1D; --caramelo:#C68B59; --musgo:#5E6B4E;
+  --noite:#24140d; --noite2:#33201a; --creme2:#fbf6ec;
+  --serif:"Fraunces","DM Serif Display",Georgia,serif;
+  --sans:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:var(--sans);color:var(--cafe);background:var(--noite);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+img,svg{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+ul{list-style:none}
+.wrap{width:min(1180px,100%);margin-inline:auto;padding-inline:clamp(20px,5vw,40px);position:relative;z-index:3}
+section{position:relative;overflow:hidden}
+.pad{padding-block:clamp(76px,10vw,140px)}
+
+/* ---------- tipografia ---------- */
+h1,h2,h3{font-family:var(--serif);font-weight:600;line-height:1.05;letter-spacing:-.015em}
+h2{font-size:clamp(34px,5.2vw,66px)}
+.eyebrow{display:inline-flex;align-items:center;gap:12px;font-size:12px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--caramelo);margin-bottom:20px}
+.eyebrow::before{content:"";width:34px;height:2px;background:currentColor;transform-origin:left;animation:lineGrow 3.6s ease-in-out infinite alternate}
+.lead{font-size:clamp(16px,1.5vw,19px);max-width:560px;opacity:.88}
+.sec-head{max-width:720px;margin-bottom:clamp(40px,6vw,72px)}
+.sec-head .lead{margin-top:20px}
+.center{text-align:center;margin-inline:auto}
+.center .eyebrow{justify-content:center}
+.on-dark{color:var(--creme)}
+.light-bg{background:var(--creme)}
+.dark-bg{background:var(--noite2);color:var(--creme)}
+
+/* ---------- botões ---------- */
+.btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:16px 30px;border-radius:999px;font-weight:700;font-size:15px;letter-spacing:.02em;overflow:hidden;transition:transform .3s,background .3s,color .3s;isolation:isolate}
+.btn:hover{transform:translateY(-3px)}
+.btn-primary{background:var(--caramelo);color:var(--noite)}
+.btn-primary::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent 30%,rgba(255,255,255,.55) 50%,transparent 70%);transform:translateX(-120%);animation:btnShine 4.2s ease-in-out infinite;z-index:-1}
+.btn-ghost{border:1.5px solid rgba(243,235,221,.55);color:var(--creme)}
+.btn-ghost:hover{background:var(--creme);color:var(--noite)}
+.btn-dark{background:var(--cafe);color:var(--creme)}
+.btns{display:flex;flex-wrap:wrap;gap:14px}
+
+/* ---------- camadas globais ---------- */
+.grain{position:fixed;inset:-50%;width:200%;height:200%;z-index:20;pointer-events:none;opacity:.075;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  animation:grain 1s steps(6) infinite}
+.beans{position:fixed;inset:0;z-index:30;pointer-events:none;overflow:hidden}
+.bean{position:absolute;top:0;width:1em;height:1.5em;border-radius:50%;
+  background:radial-gradient(ellipse at 35% 28%,#b06f40 0,#6b3c22 52%,#34190e 100%);
+  box-shadow:0 .15em .35em rgba(0,0,0,.35);
+  animation:fall var(--d,14s) linear var(--dl,0s) infinite;will-change:transform}
+.bean::after{content:"";position:absolute;left:46%;top:9%;height:82%;width:.13em;border-radius:50%;background:rgba(20,8,3,.6);transform:rotate(9deg)}
+.bean.far{filter:blur(1.4px);opacity:.55}
+.fog{position:absolute;left:-30%;width:160%;height:55%;pointer-events:none;will-change:transform;
+  background:radial-gradient(ellipse 32% 46% at 26% 50%,var(--fog,rgba(243,235,221,.24)),transparent 70%),
+             radial-gradient(ellipse 28% 40% at 66% 42%,var(--fog,rgba(243,235,221,.24)),transparent 70%),
+             radial-gradient(ellipse 22% 34% at 90% 60%,var(--fog,rgba(243,235,221,.24)),transparent 70%);
+  animation:fogA 46s ease-in-out infinite alternate}
+.fog.b{animation-name:fogB;animation-duration:62s}
+.fog.c{animation-duration:78s}
+.fog.soft{--fog:rgba(255,255,255,.55)}
+.fog.deep{--fog:rgba(243,235,221,.14)}
+
+/* ---------- cabeçalho ---------- */
+header{position:fixed;top:0;left:0;right:0;z-index:50;background:linear-gradient(180deg,rgba(36,20,13,.82),rgba(36,20,13,0));backdrop-filter:blur(2px)}
+.bar{display:flex;align-items:center;justify-content:space-between;padding-block:16px}
+.logo{display:flex;align-items:center;gap:12px;color:var(--creme)}
+.logo .mark{position:relative;width:46px;height:40px;color:var(--caramelo)}
+.logo .mark svg{width:46px;height:40px}
+.logo .mark .wisp{position:absolute;left:0;top:-14px;width:46px;height:30px;overflow:visible}
+.logo-t{display:flex;flex-direction:column;line-height:1;font-family:var(--serif);font-weight:700;font-size:19px;letter-spacing:.06em}
+.logo-t b{color:var(--caramelo);font-weight:600;font-style:italic;padding-inline:.1em}
+.logo-t small{font-family:var(--sans);font-size:10px;letter-spacing:.5em;font-weight:700;margin-top:5px;opacity:.7}
+nav ul{display:flex;gap:clamp(18px,3vw,38px)}
+nav a{font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(243,235,221,.85);position:relative;padding-block:6px}
+nav a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--caramelo);transform:scaleX(0);transform-origin:left;transition:transform .35s}
+nav a:hover::after{transform:scaleX(1)}
+
+/* ---------- hero ---------- */
+.hero{background:
+  radial-gradient(ellipse 60% 60% at 18% 12%,rgba(94,107,78,.34),transparent 70%),
+  radial-gradient(ellipse 70% 60% at 82% 70%,rgba(198,139,89,.18),transparent 70%),
+  linear-gradient(180deg,#2a1810 0%,#3a2318 55%,#4A2C1D 100%);
+  color:var(--creme);display:flex;align-items:center;padding-top:110px;padding-bottom:70px;min-height:max(100svh,680px)}
+.hero .fog.f1{top:6%}.hero .fog.f2{top:38%}.hero .fog.f3{top:62%}
+.shaft{position:absolute;top:-30%;right:2%;width:46%;height:170%;transform:rotate(26deg);pointer-events:none;z-index:1;display:flex;gap:6%;justify-content:center;animation:shaftSway 14s ease-in-out infinite alternate;will-change:transform}
+.shaft i{display:block;width:26%;height:100%;background:linear-gradient(180deg,rgba(255,228,176,.34),rgba(255,228,176,.05) 80%);animation:shaftPulse 7s ease-in-out infinite alternate;will-change:opacity}
+.shaft i:nth-child(2){animation-delay:-2.5s}
+.shaft i:nth-child(3){animation-delay:-5s}
+.hero-grid{display:block}
+.hero-copy{max-width:min(560px,100%)}
+.hero h1{font-size:clamp(40px,5.4vw,80px);font-weight:600;margin-bottom:26px}
+.hero h1 em{font-style:italic;font-weight:500}
+.sweep{display:inline-block;padding:0 .12em .2em 0;margin-bottom:-.2em;background:linear-gradient(100deg,#C68B59 0%,#C68B59 38%,#ffeccb 50%,#C68B59 62%,#C68B59 100%);background-size:260% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;animation:sweep 6s linear infinite}
+.hero .lead{margin-bottom:36px;color:rgba(243,235,221,.9)}
+.hero-meta{display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:40px;font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(243,235,221,.7)}
+.hero-meta li{display:flex;align-items:center;gap:10px}
+.hero-meta li::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--caramelo);animation:blip 2.4s ease-in-out infinite}
+.hero-meta li:nth-child(2)::before{animation-delay:.6s}.hero-meta li:nth-child(3)::before{animation-delay:1.2s}
+.st{fill:none;stroke:#F3EBDD;stroke-linecap:round;transform-box:fill-box;transform-origin:50% 100%;animation:rise 6.4s ease-in-out infinite;will-change:transform,opacity}
+.sw{transform-box:fill-box;transform-origin:50% 100%;animation:sway 4.6s ease-in-out infinite alternate}
+.dust{position:absolute;inset:0;pointer-events:none;z-index:2;overflow:hidden}
+.mote{position:absolute;bottom:-10px;width:var(--s,4px);height:var(--s,4px);border-radius:50%;background:rgba(255,236,200,.8);box-shadow:0 0 8px rgba(255,220,160,.8);animation:mote var(--d,16s) linear var(--dl,0s) infinite;will-change:transform,opacity}
+.scroll-hint{position:absolute;left:50%;bottom:22px;z-index:3;display:flex;flex-direction:column;align-items:center;gap:8px;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:rgba(243,235,221,.6);margin-left:-26px}
+.scroll-hint i{width:1.5px;height:34px;background:linear-gradient(var(--caramelo),transparent);transform-origin:top;animation:drop 2.2s ease-in-out infinite}
+
+
+/* ---------- cena do barista (câmera com zoom) ---------- */
+.camview{position:absolute;inset:0;z-index:2;overflow:hidden;pointer-events:none}
+.campos{position:absolute;left:72%;top:0;height:100%;aspect-ratio:1366/768;transform:translateX(-51.5%)}
+.cam{position:absolute;inset:0;transform-origin:51.5% 57%;animation:camZoom 24s cubic-bezier(.65,0,.35,1) infinite;will-change:transform}
+.cam-glow{position:absolute;left:51.5%;top:57%;width:56%;aspect-ratio:1;margin:-28% 0 0 -28%;border-radius:50%;background:radial-gradient(circle,rgba(226,160,98,.34),transparent 62%);animation:halo 6s ease-in-out infinite alternate}
+.cam-img{position:absolute;inset:0;width:100%;height:100%;display:block;filter:saturate(1.05) contrast(1.04)}
+.cam-fx{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.pour-core{fill:none;stroke:#fff6e6;stroke-width:3.5;stroke-linecap:round;stroke-dasharray:14 11;animation:pourFlow2 .5s linear infinite;opacity:.8}
+.pour-glow{fill:none;stroke:#ffe6bd;stroke-width:9;stroke-linecap:round;opacity:.2;animation:pourGlow 1.6s ease-in-out infinite alternate}
+.rip{fill:none;stroke:#fff4e2;stroke-width:2.2;transform-box:fill-box;transform-origin:center;animation:rip 2.4s ease-out infinite}
+.rip.r2{animation-delay:-.8s}.rip.r3{animation-delay:-1.6s}
+.dp{fill:#fff2dc;transform-box:fill-box;transform-origin:center;animation:dp 1.1s ease-out infinite}
+.dp.d2{animation-delay:-.37s}.dp.d3{animation-delay:-.74s}
+.art{fill:none;stroke:rgba(255,246,230,.55);stroke-width:2.6;stroke-linecap:round;stroke-dasharray:30 22 8 22;animation:swirl 7s linear infinite}
+.art.a2{stroke-dasharray:20 18;animation-duration:5s;animation-direction:reverse;stroke:rgba(198,139,89,.6)}
+.cs{fill:none;stroke:#F3EBDD;stroke-linecap:round;transform-box:fill-box;transform-origin:50% 100%;animation:riseL 6s ease-in-out infinite;will-change:transform,opacity}
+.veil{position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(90deg,rgba(36,20,13,.93) 0%,rgba(36,20,13,.86) 38%,rgba(36,20,13,.4) 52%,rgba(36,20,13,0) 64%)}
+
+/* ---------- do grão à xícara ---------- */
+#processo{background:var(--creme)}
+#processo .fog{--fog:rgba(255,255,255,.7);top:-8%}
+#processo .fog.b{top:50%}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:34px;position:relative}
+.step{position:relative;background:var(--creme2);border:1px solid rgba(74,44,29,.12);border-radius:24px;padding:20px 20px 26px;box-shadow:0 18px 40px -26px rgba(74,44,29,.45)}
+.step::before{content:"";position:absolute;inset:-1px;border-radius:24px;border:2px solid var(--caramelo);opacity:0;animation:stepOn 12s ease-in-out infinite;animation-delay:calc(var(--i)*3s);pointer-events:none}
+.step:not(:last-child)::after{content:"";position:absolute;right:-27px;top:34%;width:20px;height:20px;border-top:3px solid var(--caramelo);border-right:3px solid var(--caramelo);transform:rotate(45deg);animation:chev 1.8s ease-in-out infinite;animation-delay:calc(var(--i)*.25s)}
+.ill{width:100%;height:auto;aspect-ratio:200/170;background:radial-gradient(circle at 50% 45%,rgba(198,139,89,.16),transparent 70%);border-radius:16px}
+.num{font-family:var(--serif);font-style:italic;color:var(--caramelo);font-size:15px;font-weight:500;margin-top:14px;display:block}
+.step h3{font-size:26px;margin:2px 0 8px}
+.step p{font-size:14.5px;opacity:.82}
+.track{margin-top:42px;height:4px;border-radius:4px;background:rgba(74,44,29,.12);overflow:hidden}
+.track i{display:block;height:100%;background:linear-gradient(90deg,var(--musgo),var(--caramelo),var(--cafe));transform-origin:left;transform:scaleX(0);animation:trackFill 12s linear infinite}
+/* ilustrações */
+.gshadow{transform-box:fill-box;transform-origin:center;animation:shadowPulse 4s ease-in-out infinite}
+.beanG{transform-box:fill-box;transform-origin:50% 90%;animation:beanBob 4.4s ease-in-out infinite}
+.leafL,.leafR{transform-box:fill-box;transform-origin:100% 100%;animation:leafSway 5s ease-in-out infinite alternate}
+.leafR{transform-origin:0 100%;animation-delay:-2s;animation-direction:alternate-reverse}
+.spark{transform-box:fill-box;transform-origin:center;animation:twinkle 2.6s ease-in-out infinite}
+.spin{transform-origin:100px 78px;animation:spin 6s linear infinite}
+.rb{animation:roast 8s ease-in-out infinite;color:#8fa06b}
+.rb:nth-of-type(2){animation-delay:-.6s}.rb:nth-of-type(3){animation-delay:-1.2s}.rb:nth-of-type(4){animation-delay:-1.8s}.rb:nth-of-type(5){animation-delay:-2.4s}.rb:nth-of-type(6){animation-delay:-3s}.rb:nth-of-type(7){animation-delay:-3.6s}
+.fl{transform-box:fill-box;transform-origin:50% 100%;animation:flame .9s ease-in-out infinite alternate}
+.fl.f2{animation-delay:-.3s;animation-duration:.7s}.fl.f3{animation-delay:-.55s;animation-duration:1.1s}
+.smk{transform-box:fill-box;transform-origin:50% 100%;animation:rise 4s ease-in-out infinite;fill:none;stroke:rgba(74,44,29,.35);stroke-width:3;stroke-linecap:round}
+.crank{transform-origin:100px 50px;animation:spin 1.8s linear infinite}
+.hb{animation:beanBob 1.8s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+.gp{animation:grind 1s linear infinite;transform-box:fill-box}
+.gp:nth-of-type(2){animation-delay:-.2s}.gp:nth-of-type(3){animation-delay:-.4s}.gp:nth-of-type(4){animation-delay:-.6s}.gp:nth-of-type(5){animation-delay:-.8s}
+.pile{transform-box:fill-box;transform-origin:50% 100%;animation:pile 6s ease-in-out infinite}
+.pour{stroke-dasharray:5 5;animation:pourFlow .5s linear infinite}
+.bloom{transform-box:fill-box;transform-origin:center;animation:twinkle 1.6s ease-in-out infinite}
+.dr{transform-box:fill-box;transform-origin:50% 0;animation:drip 1.6s cubic-bezier(.5,0,.9,.6) infinite}
+.dr.d2{animation-delay:-.55s}.dr.d3{animation-delay:-1.1s}
+.liquid{transform-box:fill-box;transform-origin:50% 100%;animation:fillUp 12s ease-in-out infinite}
+
+/* ---------- cardápio ---------- */
+#cardapio{background:linear-gradient(180deg,var(--noite2),#2b1a13);color:var(--creme)}
+#cardapio .fog{top:0;--fog:rgba(243,235,221,.12)}
+#cardapio .fog.b{top:55%}
+.menu{display:grid;grid-template-columns:repeat(4,1fr);gap:26px;padding-top:12px}
+.hang{position:relative;padding-top:44px;transform-origin:50% 0;animation:swing 6s ease-in-out infinite alternate;will-change:transform}
+.hang:nth-child(2){animation-duration:7.2s;animation-delay:-2.2s}
+.hang:nth-child(3){animation-duration:5.4s;animation-delay:-3.6s}
+.hang:nth-child(4){animation-duration:6.6s;animation-delay:-1.1s}
+.hang::before{content:"";position:absolute;top:6px;left:12%;right:12%;height:40px;
+  background:linear-gradient(to top right,transparent calc(50% - 1px),rgba(243,235,221,.6) 50%,transparent calc(50% + 1px)) left/50% 100% no-repeat,
+             linear-gradient(to top left,transparent calc(50% - 1px),rgba(243,235,221,.6) 50%,transparent calc(50% + 1px)) right/50% 100% no-repeat}
+.hang::after{content:"";position:absolute;top:0;left:50%;width:12px;height:12px;margin-left:-6px;border-radius:50%;background:var(--caramelo);box-shadow:0 0 0 3px rgba(198,139,89,.28)}
+.mcard{position:relative;background:var(--creme);color:var(--cafe);border-radius:20px;padding:22px 22px 26px;height:100%;box-shadow:0 30px 50px -24px rgba(0,0,0,.65);display:flex;flex-direction:column}
+.mcard::before{content:"";position:absolute;top:10px;left:50%;width:56px;height:5px;margin-left:-28px;border-radius:5px;background:rgba(74,44,29,.14)}
+.mico{width:84px;height:84px;margin:12px auto 10px}
+.mcard h3{font-size:25px;text-align:center;margin-bottom:8px}
+.mcard p{font-size:14.5px;text-align:center;opacity:.82;flex:1}
+.mtag{display:flex;justify-content:space-between;align-items:center;margin-top:18px;padding-top:14px;border-top:1px dashed rgba(74,44,29,.28);font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+.mtag b{font-family:var(--serif);font-size:22px;letter-spacing:0;color:var(--musgo)}
+.pastry{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(28px,6vw,80px);align-items:center;margin-top:clamp(70px,9vw,120px)}
+.arch{position:relative;border-radius:999px 999px 24px 24px;overflow:hidden;aspect-ratio:4/5.2;max-width:380px;justify-self:center;box-shadow:0 40px 60px -30px rgba(0,0,0,.8);border:1px solid rgba(243,235,221,.16);animation:floaty 8s ease-in-out infinite}
+.arch img{width:100%;height:100%;object-fit:cover;animation:kenburns 18s ease-in-out infinite alternate;will-change:transform}
+.arch::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 60%,rgba(36,20,13,.55))}
+.pastry h2{font-size:clamp(30px,4.2vw,52px);margin-bottom:18px}
+.pastry p{opacity:.85;max-width:520px}
+.sweets{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.sweets li{padding:10px 18px;border:1px solid rgba(243,235,221,.28);border-radius:999px;font-size:13.5px;font-weight:600;animation:chipFloat 4.6s ease-in-out infinite}
+.sweets li:nth-child(2){animation-delay:-.8s}.sweets li:nth-child(3){animation-delay:-1.6s}.sweets li:nth-child(4){animation-delay:-2.4s}.sweets li:nth-child(5){animation-delay:-3.2s}
+.mico .ms{transform-box:fill-box;transform-origin:50% 100%;animation:rise 4.4s ease-in-out infinite;fill:none;stroke:var(--caramelo);stroke-width:3;stroke-linecap:round}
+.mico .ms.m2{animation-delay:-1.5s}.mico .ms.m3{animation-delay:-3s}
+.ice{animation:iceBob 3s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+.ice.i2{animation-delay:-1s}.ice.i3{animation-delay:-2s}
+.foam{transform-box:fill-box;transform-origin:center;animation:foam 3.4s ease-in-out infinite alternate}
+
+/* ---------- origens ---------- */
+#origens{background:var(--creme)}
+#origens .fog{--fog:rgba(255,255,255,.65);top:20%}
+.origins{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(30px,6vw,80px);align-items:center}
+.map{width:100%;max-width:580px;margin-inline:auto;overflow:visible}
+.contour{fill:none;stroke:var(--cafe);stroke-opacity:.22;stroke-width:1.4;stroke-dasharray:3 7;animation:dash 12s linear infinite}
+.sul{fill:rgba(198,139,89,.3);stroke:var(--caramelo);stroke-width:2;stroke-dasharray:6 6;animation:dash 9s linear infinite}
+.ring{fill:none;stroke:#e9a65b;stroke-width:2;transform-box:fill-box;transform-origin:center;animation:ping 3.2s ease-out infinite;animation-delay:calc(var(--i)*.5s)}
+.ring.r2{animation-delay:calc(var(--i)*.5s + 1.6s)}
+.pdot{fill:#ffd7a0;stroke:#c97d33;stroke-width:2;transform-box:fill-box;transform-origin:center;animation:glow 2.2s ease-in-out infinite;animation-delay:calc(var(--i)*.35s);filter:drop-shadow(0 0 7px rgba(255,190,100,.95))}
+.hl{fill:rgba(198,139,89,.25);transform-box:fill-box;transform-origin:center;opacity:0;animation:hl 12s ease-in-out infinite;animation-delay:calc(var(--i)*2s)}
+.mlabel{font-family:var(--serif);font-style:italic;font-size:22px;fill:var(--cafe);fill-opacity:.4;letter-spacing:.2em}
+.slabel{font-family:var(--sans);font-weight:800;font-size:12px;letter-spacing:.3em;fill:#9a6232}
+.farms li{position:relative;display:flex;gap:16px;align-items:flex-start;padding:16px 18px;border-radius:16px}
+.farms li::before{content:"";position:absolute;inset:0;border-radius:16px;background:rgba(198,139,89,.2);opacity:0;animation:rowOn 12s ease-in-out infinite;animation-delay:calc(var(--i)*2s)}
+.farms li>*{position:relative}
+.fpin{flex:none;width:12px;height:12px;border-radius:50%;background:var(--caramelo);margin-top:8px;box-shadow:0 0 0 0 rgba(198,139,89,.6);animation:fpin 2.4s ease-out infinite;animation-delay:calc(var(--i)*.4s)}
+.farms strong{display:block;font-family:var(--serif);font-size:21px;font-weight:600;line-height:1.2}
+.farms span{font-size:14px;opacity:.78}
+.origins p.lead{margin:18px 0 22px}
+
+/* ---------- grãos para levar ---------- */
+#graos{background:#27301f;color:var(--creme)}
+.bgimg{position:absolute;inset:-6%;z-index:0}
+.bgimg img{width:100%;height:100%;object-fit:cover;filter:blur(3px) saturate(.8);opacity:.34;animation:kenburns 30s ease-in-out infinite alternate}
+.bgimg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#27301f 0%,rgba(39,48,31,.55) 40%,rgba(39,48,31,.8) 75%,#27301f 100%)}
+#graos .fog{top:10%;--fog:rgba(243,235,221,.1)}
+.bags{display:flex;flex-wrap:wrap;justify-content:center;gap:clamp(8px,3vw,48px);margin-top:10px}
+.bitem{display:flex;flex-direction:column;align-items:center;text-align:center}
+.bscene{--k:1.2;font-size:calc(10px*var(--k));width:18em;height:29em;perspective:95em;display:grid;place-items:center;animation:floaty 6s ease-in-out infinite}
+.bitem:nth-child(2) .bscene{animation-delay:-2s}.bitem:nth-child(3) .bscene{animation-delay:-4s}
+.bag{position:relative;width:15em;height:23em;transform-style:preserve-3d;animation:bagSpin 22s linear infinite;animation-delay:var(--sd,0s)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:.5em .5em 1.4em 1.4em;background:linear-gradient(100deg,var(--c),var(--c2) 60%,var(--c));overflow:hidden;color:var(--tx,#F3EBDD)}
+.face::before{content:"";position:absolute;left:0;right:0;top:0;height:2.6em;background:repeating-linear-gradient(90deg,rgba(0,0,0,.16) 0 2px,rgba(255,255,255,.05) 2px 6px);border-bottom:1px solid rgba(0,0,0,.25)}
+.face::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,rgba(255,255,255,.22),transparent 38%,transparent 70%,rgba(0,0,0,.2))}
+.front{transform:translateZ(3.1em)}
+.back{transform:rotateY(180deg) translateZ(3.1em)}
+.side{inset:0 auto 0 4.4em;width:6.2em;border-radius:.4em .4em 1em 1em}
+.sl{transform:rotateY(-90deg) translateZ(7.5em)}
+.sr{transform:rotateY(90deg) translateZ(7.5em)}
+.lab{position:absolute;z-index:2;left:1.4em;right:1.4em;top:4.4em;bottom:2.2em;background:var(--creme);color:var(--cafe);border-radius:.6em;padding:1.2em .8em;display:flex;flex-direction:column;align-items:center;justify-content:space-between;text-align:center;box-shadow:inset 0 0 0 .15em rgba(74,44,29,.12)}
+.lab .lg{font-family:var(--serif);font-weight:700;font-size:1.05em;letter-spacing:.1em;line-height:1.15}
+.lab .lg b{font-style:italic;color:var(--caramelo);font-weight:600}
+.lab .nm{font-family:var(--serif);font-weight:600;font-size:2.3em;line-height:1;margin:.2em 0}
+.lab .or{font-size:.95em;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--musgo)}
+.lab .nt{font-size:.95em;line-height:1.35;opacity:.85}
+.lab .pt{font-size:1em;font-weight:800;border:.12em solid var(--cafe);border-radius:2em;padding:.2em .9em}
+.lab.bk{justify-content:center;gap:.9em}
+.lab .bar2{width:80%;height:3.2em;background:repeating-linear-gradient(90deg,var(--cafe) 0 2px,transparent 2px 4px,var(--cafe) 4px 5px,transparent 5px 8px)}
+.sidetxt{position:absolute;z-index:2;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-90deg);white-space:nowrap;font-family:var(--serif);font-weight:600;font-size:1.5em;letter-spacing:.4em;opacity:.85}
+.bshadow{position:absolute;bottom:.4em;width:12em;height:2em;border-radius:50%;background:rgba(0,0,0,.45);filter:blur(.7em);animation:shadowPulse 6s ease-in-out infinite;z-index:-1}
+.bcap{margin-top:6px}
+.bcap strong{font-family:var(--serif);font-size:22px;font-weight:600;display:block}
+.bcap span{font-size:13.5px;opacity:.78}
+.bcap em{display:block;margin-top:6px;font-style:normal;font-weight:800;color:var(--caramelo);font-size:15px}
+.buy{display:flex;flex-direction:column;align-items:center;gap:16px;margin-top:clamp(36px,5vw,60px);text-align:center}
+.buy p{opacity:.8;max-width:520px;font-size:15px}
+
+/* ---------- depoimentos ---------- */
+#depoimentos{background:var(--creme)}
+#depoimentos .fog{--fog:rgba(255,255,255,.7);top:10%}
+.testi{display:grid;grid-template-columns:.7fr 1.3fr;gap:clamp(28px,6vw,90px);align-items:center}
+.portrait{position:relative;justify-self:center;width:min(300px,78%)}
+.portrait .arch{max-width:none;animation:floaty 7s ease-in-out infinite}
+.portrait .arch img{object-position:50% 40%}
+.orbit{position:absolute;inset:-28px;border-radius:999px 999px 40px 40px;border:1.5px dashed rgba(198,139,89,.7);animation:orbit 24s linear infinite}
+.portrait svg.pv{position:absolute;left:50%;top:-58px;width:70px;height:70px;margin-left:-35px;overflow:visible;z-index:3}
+.slides{display:grid}
+.slide{grid-area:1/1;opacity:0;transform:translateX(26px);transition:opacity .9s ease,transform .9s ease;pointer-events:none}
+.slide.on{opacity:1;transform:none;pointer-events:auto}
+.qmark{font-family:var(--serif);font-size:110px;line-height:.6;color:var(--caramelo);height:50px;display:block;animation:floaty 5s ease-in-out infinite}
+.stars{display:flex;gap:4px;color:var(--caramelo);font-size:20px;margin-bottom:18px}
+.stars span{display:inline-block;animation:twinkle 2.4s ease-in-out infinite}
+.stars span:nth-child(2){animation-delay:.2s}.stars span:nth-child(3){animation-delay:.4s}.stars span:nth-child(4){animation-delay:.6s}.stars span:nth-child(5){animation-delay:.8s}
+blockquote{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(22px,2.8vw,36px);line-height:1.3;letter-spacing:-.005em}
+.who{margin-top:24px;display:flex;align-items:center;gap:14px}
+.who i{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:var(--musgo);color:var(--creme);font-family:var(--serif);font-style:normal;font-weight:600;font-size:19px}
+.who b{display:block;font-size:15px}
+.who span{font-size:13px;opacity:.7}
+.dots{display:flex;gap:10px;margin-top:34px}
+.dots button{position:relative;width:46px;height:5px;border:0;border-radius:5px;background:rgba(74,44,29,.18);overflow:hidden;cursor:pointer}
+.dots button i{position:absolute;inset:0;background:var(--caramelo);transform-origin:left;transform:scaleX(0)}
+.dots button.on i{animation:prog 5s linear forwards}
+
+/* ---------- faixa infinita ---------- */
+.marquee{background:var(--caramelo);color:var(--noite);overflow:hidden;padding-block:clamp(20px,3vw,34px);border-block:1px solid rgba(36,20,13,.2)}
+.mq-track{display:flex;width:max-content;animation:marquee 34s linear infinite;will-change:transform}
+.mq-track span{display:flex;align-items:center;font-family:var(--serif);font-style:italic;font-weight:500;font-size:clamp(26px,4.2vw,54px);white-space:nowrap;padding-right:.6em}
+.mq-track span i{font-style:normal;display:inline-block;margin:0 .55em;color:var(--cafe);animation:spin 8s linear infinite;font-size:.55em}
+
+/* ---------- cta ---------- */
+#contato{background:radial-gradient(ellipse 80% 90% at 50% 100%,#4A2C1D,#2a1810 70%);color:var(--creme);text-align:center}
+#contato .fog{--fog:rgba(243,235,221,.14);top:30%}
+.ripples{position:absolute;left:50%;top:50%;width:0;height:0;z-index:1;pointer-events:none}
+.ripples i{position:absolute;left:-380px;top:-380px;width:760px;height:760px;border-radius:50%;border:1.5px solid rgba(198,139,89,.5);animation:ripple 9s ease-out infinite;will-change:transform,opacity}
+.ripples i:nth-child(2){animation-delay:-3s}.ripples i:nth-child(3){animation-delay:-6s}
+.cta h2{font-size:clamp(40px,7vw,96px);max-width:12em;margin:0 auto 22px}
+.cta .lead{margin:0 auto 38px;color:rgba(243,235,221,.9)}
+.pulse-btn{animation:btnPulse 2.6s ease-in-out infinite}
+
+/* ---------- rodapé ---------- */
+footer{background:#1a0e09;color:rgba(243,235,221,.85);padding:clamp(64px,8vw,100px) 0 30px;position:relative;overflow:hidden}
+.foot{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:34px}
+.flogo{position:relative;display:inline-block;padding-top:70px}
+.flogo .steamF{position:absolute;left:-6px;top:0;width:110px;height:100px;overflow:visible}
+.flogo .logo{position:relative}
+.foot p{font-size:14.5px;margin-top:18px;max-width:300px;opacity:.75}
+.foot h4{font-family:var(--sans);font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--caramelo);margin-bottom:16px}
+.foot li{font-size:14.5px;margin-bottom:8px}
+.foot a{display:inline-flex;align-items:center;gap:10px;transition:color .3s}
+.foot a:hover{color:var(--caramelo)}
+.foot a svg{width:18px;height:18px;flex:none}
+.copy{margin-top:56px;padding-top:24px;border-top:1px solid rgba(243,235,221,.12);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:13px;opacity:.6}
+footer .fog{--fog:rgba(243,235,221,.07);top:20%}
+
+/* ---------- whatsapp ---------- */
+.wpp{position:fixed;right:clamp(16px,3vw,28px);bottom:clamp(16px,3vw,28px);z-index:55;width:62px;height:62px;border-radius:50%;background:#25D366;display:grid;place-items:center;box-shadow:0 10px 30px rgba(0,0,0,.4);animation:wppBob 3s ease-in-out infinite}
+.wpp svg{width:32px;height:32px;fill:#fff;position:relative}
+.wpp::before,.wpp::after{content:"";position:absolute;inset:0;border-radius:50%;background:#25D366;z-index:-1;animation:wppPulse 2.4s ease-out infinite}
+.wpp::after{animation-delay:1.2s}
+
+/* ---------- keyframes ---------- */
+@keyframes camZoom{0%{transform:scale(1)}30%{transform:scale(1.62)}64%{transform:scale(1.7)}100%{transform:scale(1)}}
+@keyframes pourFlow2{to{stroke-dashoffset:-25}}
+@keyframes pourGlow{from{opacity:.12}to{opacity:.3}}
+@keyframes rip{0%{transform:scale(.12);opacity:.95}100%{transform:scale(1);opacity:0}}
+@keyframes dp{0%{transform:translate(0,0) scale(1);opacity:1}45%{transform:translate(calc(var(--x)*.6),-16px) scale(.9);opacity:1}100%{transform:translate(var(--x),3px) scale(.4);opacity:0}}
+@keyframes riseL{0%{opacity:0;transform:translateY(12px) scale(.75,.55)}25%{opacity:.55}70%{opacity:.28}100%{opacity:0;transform:translateY(-60px) scale(1.25,1.15)}}
+@keyframes grain{0%{transform:translate(0,0)}20%{transform:translate(-4%,3%)}40%{transform:translate(3%,-5%)}60%{transform:translate(-5%,-2%)}80%{transform:translate(4%,4%)}100%{transform:translate(0,0)}}
+@keyframes fall{from{transform:translate3d(0,-12vh,0) rotate(0)}to{transform:translate3d(var(--dx,40px),112vh,0) rotate(var(--rot,360deg))}}
+@keyframes fogA{from{transform:translateX(-9%)}to{transform:translateX(9%)}}
+@keyframes fogB{from{transform:translateX(8%) scaleY(1.1)}to{transform:translateX(-10%) scaleY(.9)}}
+@keyframes lineGrow{from{transform:scaleX(.35)}to{transform:scaleX(1)}}
+@keyframes btnShine{0%,55%{transform:translateX(-120%)}100%{transform:translateX(120%)}}
+@keyframes shaftSway{from{transform:rotate(23deg) translateX(-3%)}to{transform:rotate(29deg) translateX(3%)}}
+@keyframes shaftPulse{from{opacity:.35}to{opacity:1}}
+@keyframes sweep{from{background-position:140% 0}to{background-position:-60% 0}}
+@keyframes blip{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.8);opacity:.45}}
+@keyframes halo{from{transform:scale(.92);opacity:.7}to{transform:scale(1.08);opacity:1}}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+@keyframes rise{0%{opacity:0;transform:translateY(14px) scale(.75,.55)}25%{opacity:.85}70%{opacity:.4}100%{opacity:0;transform:translateY(-70px) scale(1.25,1.18)}}
+@keyframes sway{from{transform:rotate(-5deg)}to{transform:rotate(5deg)}}
+@keyframes swirl{to{stroke-dashoffset:-260}}
+@keyframes mote{0%{transform:translate3d(0,0,0);opacity:0}10%{opacity:1}90%{opacity:.8}100%{transform:translate3d(var(--dx,30px),-105vh,0);opacity:0}}
+@keyframes drop{0%{transform:scaleY(0)}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+@keyframes stepOn{0%{opacity:0}5%{opacity:1}22%{opacity:1}28%{opacity:0}100%{opacity:0}}
+@keyframes chev{0%,100%{transform:translateX(0) rotate(45deg);opacity:.35}50%{transform:translateX(8px) rotate(45deg);opacity:1}}
+@keyframes trackFill{0%{transform:scaleX(0);opacity:1}92%{transform:scaleX(1);opacity:1}100%{transform:scaleX(1);opacity:0}}
+@keyframes shadowPulse{0%,100%{transform:scale(1);opacity:.9}50%{transform:scale(.82);opacity:.6}}
+@keyframes beanBob{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-6px) rotate(4deg)}}
+@keyframes leafSway{from{transform:rotate(-5deg)}to{transform:rotate(5deg)}}
+@keyframes twinkle{0%,100%{opacity:.45;transform:scale(.85)}50%{opacity:1;transform:scale(1.15)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes roast{0%{color:#8fa06b}30%{color:#c98f5a}58%{color:#7a4528}82%{color:#2e180d}92%{color:#2e180d}100%{color:#8fa06b}}
+@keyframes flame{from{transform:scale(.85,.8);opacity:.85}to{transform:scale(1.1,1.25);opacity:1}}
+@keyframes grind{0%{transform:translateY(0);opacity:1}100%{transform:translateY(26px);opacity:.2}}
+@keyframes pile{0%{transform:scaleY(.35)}85%{transform:scaleY(1)}100%{transform:scaleY(1)}}
+@keyframes pourFlow{to{stroke-dashoffset:-10}}
+@keyframes drip{0%{transform:translateY(0) scale(.3);opacity:0}15%{transform:translateY(0) scale(1);opacity:1}100%{transform:translateY(30px) scale(1);opacity:.85}}
+@keyframes fillUp{0%{transform:scaleY(.04)}78%{transform:scaleY(1)}92%{transform:scaleY(1);opacity:1}100%{transform:scaleY(1);opacity:0}}
+@keyframes swing{from{transform:rotate(-2.6deg)}to{transform:rotate(2.6deg)}}
+@keyframes kenburns{from{transform:scale(1.02) translate(0,0)}to{transform:scale(1.14) translate(-2%,-2%)}}
+@keyframes chipFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+@keyframes iceBob{0%,100%{transform:translateY(0) rotate(-6deg)}50%{transform:translateY(-4px) rotate(8deg)}}
+@keyframes foam{from{transform:scale(1,.9)}to{transform:scale(1.06,1.15)}}
+@keyframes dash{to{stroke-dashoffset:-130}}
+@keyframes ping{0%{transform:scale(1);opacity:.85}100%{transform:scale(4);opacity:0}}
+@keyframes glow{0%,100%{transform:scale(1)}50%{transform:scale(1.35)}}
+@keyframes hl{0%{opacity:0;transform:scale(.5)}6%{opacity:1;transform:scale(1)}22%{opacity:1;transform:scale(1.5)}28%{opacity:0;transform:scale(2)}100%{opacity:0}}
+@keyframes rowOn{0%{opacity:0}6%{opacity:1}20%{opacity:1}28%{opacity:0}100%{opacity:0}}
+@keyframes fpin{0%{box-shadow:0 0 0 0 rgba(198,139,89,.6)}70%,100%{box-shadow:0 0 0 12px rgba(198,139,89,0)}}
+@keyframes bagSpin{from{transform:rotateX(-5deg) rotateY(0)}to{transform:rotateX(-5deg) rotateY(360deg)}}
+@keyframes orbit{to{transform:rotate(360deg)}}
+@keyframes prog{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes marquee{to{transform:translateX(-50%)}}
+@keyframes ripple{0%{transform:scale(.15);opacity:.9}100%{transform:scale(1.6);opacity:0}}
+@keyframes btnPulse{0%,100%{box-shadow:0 0 0 0 rgba(198,139,89,.55)}60%{box-shadow:0 0 0 22px rgba(198,139,89,0)}}
+@keyframes wppBob{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-5px) scale(1.06)}}
+@keyframes wppPulse{0%{transform:scale(1);opacity:.55}100%{transform:scale(2.1);opacity:0}}
+
+/* ---------- responsivo ---------- */
+@media (max-width:1020px){
+  .menu{grid-template-columns:repeat(2,1fr);gap:48px 26px}
+  .foot{grid-template-columns:1fr 1fr}
+}
+@media (max-width:900px){
+  nav{display:none}
+  .hero{padding-top:calc(max(54svh,400px) - 10px);align-items:flex-start;padding-bottom:60px}
+  .camview{inset:0 0 auto 0;height:max(54svh,400px);-webkit-mask-image:linear-gradient(180deg,#000 78%,transparent);mask-image:linear-gradient(180deg,#000 78%,transparent)}
+  .campos{left:50%}
+  .veil{background:linear-gradient(180deg,rgba(36,20,13,0) 0,rgba(36,20,13,0) 40%,rgba(36,20,13,.9) max(54svh,400px))}
+  .scroll-hint{display:none}
+  .steps{grid-template-columns:repeat(2,1fr);gap:22px}
+  .step:not(:last-child)::after{display:none}
+  .origins,.pastry,.testi{grid-template-columns:1fr}
+  .testi .portrait{width:min(240px,64%)}
+  .shaft{width:90%;right:-20%}
+}
+@media (max-width:900px){
+  @keyframes camZoom{0%{transform:scale(1)}30%{transform:scale(1.4)}64%{transform:scale(1.46)}100%{transform:scale(1)}}
+}
+@media (max-width:620px){
+  .bscene{--k:.9}
+  .bags{gap:0}
+  .menu{grid-template-columns:1fr;max-width:340px;margin-inline:auto}
+  .steps{gap:14px}
+  .step{padding:14px 14px 20px;border-radius:18px}
+  .step h3{font-size:21px}
+  .step p{font-size:13.5px}
+  .foot{grid-template-columns:1fr}
+  .hero-meta{font-size:11.5px}
+  .btn{padding:15px 24px}
+  .logo-t{font-size:16px}
+  .logo .mark,.logo .mark svg{width:38px;height:33px}
+  .ripples i{left:-230px;top:-230px;width:460px;height:460px}
+}
+@media (prefers-reduced-motion:reduce){
+  .beans,.dust,.grain{display:none}
+  .cam{animation:none;transform:scale(1.45)}
+  .mq-track,.hang,.bag,.orbit{animation:none}
+}
+</style>
+</head>
+<body>
+
+<!-- símbolos reutilizáveis -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <g id="bean"><ellipse rx="9" ry="13" fill="currentColor"/><path d="M-1 -11C4 -4 -3 4 1 11" fill="none" stroke="rgba(20,8,3,.42)" stroke-width="1.8" stroke-linecap="round"/></g>
+    <symbol id="cup" viewBox="0 0 48 40">
+      <path d="M6 16h28v4c0 9-6 15-14 15S6 29 6 20z" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/>
+      <path d="M34 19c5.500 0 8 2.400 8 5.200S39 29.500 33 29.500" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+      <path d="M3 37.500h34" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+    </symbol>
+    <path id="mgShape" d="M244 23 C257.0 17.7 288.2 9.0 308 9 C327.8 9.0 347.7 16.8 363 23 C378.3 29.2 386.2 36.0 400 46 C413.8 56.0 433.7 71.5 446 83 C458.3 94.5 463.0 101.2 474 115 C485.0 128.8 505.3 152.2 512 166 C518.7 179.8 518.0 187.3 514 198 C510.0 208.7 495.5 217.0 488 230 C480.5 243.0 472.2 262.2 469 276 C465.8 289.8 475.2 304.5 469 313 C462.8 321.5 439.7 318.7 432 327 C424.3 335.3 432.2 354.0 423 363 C413.8 372.0 392.3 379.5 377 381 C361.7 382.5 344.0 372.0 331 372 C318.0 372.0 309.0 376.3 299 381 C289.0 385.7 281.7 395.3 271 400 C260.3 404.7 247.2 411.3 235 409 C222.8 406.7 205.0 393.7 198 386 C191.0 378.3 196.2 373.7 193 363 C189.8 352.3 181.3 334.2 179 322 C176.7 309.8 184.3 296.8 179 290 C173.7 283.2 160.0 282.5 147 281 C134.0 279.5 117.8 282.7 101 281 C84.2 279.3 61.3 272.7 46 271 C30.7 269.3 10.5 277.0 9 271 C7.5 265.0 27.8 244.0 37 235 C46.2 226.0 53.3 225.5 64 217 C74.7 208.5 89.5 192.5 101 184 C112.5 175.5 122.2 175.2 133 166 C143.8 156.8 158.3 141.3 166 129 C173.7 116.7 170.7 102.0 179 92 C187.3 82.0 207.5 77.5 216 69 C224.5 60.5 225.3 48.7 230 41 C234.7 33.3 231.0 28.3 244 23Z"/>
+    <clipPath id="mgClip"><use href="#mgShape"/></clipPath>
+  </defs>
+</svg>
+
+<div class="grain" aria-hidden="true"></div>
+<div class="beans" id="beans" aria-hidden="true"></div>
+
+<header>
+  <div class="wrap bar">
+    <a class="logo" href="#hero" aria-label="Grão &amp; Névoa Café, início">
+      <span class="mark">
+        <svg class="wisp" viewBox="0 0 46 30" fill="none" stroke="#F3EBDD" stroke-linecap="round" stroke-width="2" aria-hidden="true">
+          <path class="st" style="animation-duration:4.2s;animation-delay:-1s" d="M14 30c-4-5 4-8 0-14"/>
+          <path class="st" style="animation-duration:5s;animation-delay:-2.4s" d="M23 30c-4-5 4-8 0-14"/>
+          <path class="st" style="animation-duration:4.6s;animation-delay:-3.4s" d="M32 30c-4-5 4-8 0-14"/>
+        </svg>
+        <svg viewBox="0 0 48 40" aria-hidden="true"><use href="#cup"/></svg>
+      </span>
+      <span class="logo-t">GRÃO <b>&amp;</b> NÉVOA<small>CAFÉ</small></span>
+    </a>
+    <nav aria-label="Principal">
+      <ul>
+        <li><a href="#processo">Processo</a></li>
+        <li><a href="#cardapio">Cardápio</a></li>
+        <li><a href="#origens">Origens</a></li>
+        <li><a href="#graos">Grãos</a></li>
+        <li><a href="#contato">Contato</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+<!-- 1. HERO -->
+<section id="hero" class="hero">
+  <div class="fog f1"></div><div class="fog b f2"></div><div class="fog c f3"></div>
+  <div class="shaft" aria-hidden="true"><i></i><i></i><i></i></div>
+  <div class="camview">
+    <div class="campos">
+      <div class="cam">
+        <div class="cam-glow"></div>
+        <img class="cam-img" src="img/barista.png" alt="Barista servindo um café com arte no leite" width="1366" height="768">
+        <svg class="cam-fx" viewBox="0 0 1366 768" aria-hidden="true">
+          <defs>
+            <filter id="soft" x="-50%" y="-10%" width="200%" height="120%"><feGaussianBlur stdDeviation="2.5"/></filter>
+            <filter id="mist" filterUnits="userSpaceOnUse" x="560" y="170" width="300" height="260"><feGaussianBlur stdDeviation="7"/></filter>
+            <clipPath id="cupTop"><ellipse cx="700" cy="441" rx="100" ry="36"/></clipPath>
+          </defs>
+          <g clip-path="url(#cupTop)">
+            <ellipse class="art" cx="700" cy="441" rx="86" ry="28"/>
+            <ellipse class="art a2" cx="700" cy="441" rx="56" ry="18"/>
+            <ellipse class="art" cx="700" cy="441" rx="28" ry="9"/>
+          </g>
+          <path class="pour-glow" filter="url(#soft)" d="M735 352C739 384 742 414 741 446"/>
+          <path class="pour-core" d="M735 352C739 384 742 414 741 446"/>
+          <ellipse class="rip" cx="741" cy="449" rx="72" ry="19"/>
+          <ellipse class="rip r2" cx="741" cy="449" rx="72" ry="19"/>
+          <ellipse class="rip r3" cx="741" cy="449" rx="72" ry="19"/>
+          <circle class="dp" style="--x:-14px" cx="737" cy="444" r="2.6"/>
+          <circle class="dp d2" style="--x:16px" cx="745" cy="444" r="2.2"/>
+          <circle class="dp d3" style="--x:4px" cx="741" cy="443" r="1.9"/>
+          <g filter="url(#mist)" transform="translate(0 404)">
+            <path class="cs" style="animation-delay:-1s" stroke-width="12" d="M640 0C626 -30 654 -60 640 -90C626 -120 654 -150 640 -180"/>
+            <path class="cs" style="animation-delay:-3.2s;animation-duration:7s" stroke-width="10" d="M690 0C704 -30 676 -60 690 -90C704 -120 676 -150 690 -180"/>
+            <path class="cs" style="animation-delay:-4.6s;animation-duration:6.4s" stroke-width="10" d="M770 0C756 -30 784 -60 770 -90C756 -120 784 -150 770 -180"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </div>
+  <div class="veil"></div>
+  <div class="dust" id="dust" aria-hidden="true"></div>
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <p class="eyebrow">Cafés especiais · Torra própria</p>
+      <h1>Cada xícara tem uma <em class="sweep">origem.</em></h1>
+      <p class="lead">Grãos de fazendas parceiras do Sul de Minas, torrados aqui mesmo em lotes pequenos e servidos sem pressa, numa casa de luz suave e cheiro de manhã.</p>
+      <div class="btns">
+        <a class="btn btn-primary" href="#cardapio">Conhecer os cafés</a>
+        <a class="btn btn-ghost" href="#contato">Como chegar</a>
+      </div>
+      <ul class="hero-meta">
+        <li>Pontuação 85+</li>
+        <li>Torra própria</li>
+        <li>Sul de Minas</li>
+      </ul>
+    </div>
+  </div>
+  <div class="scroll-hint" aria-hidden="true"><span>Role</span><i></i></div>
+</section>
+
+<!-- 2. DO GRÃO À XÍCARA -->
+<section id="processo" class="pad">
+  <div class="fog soft"></div><div class="fog soft b"></div>
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Do grão à xícara</p>
+      <h2>Quatro etapas, nenhuma pressa.</h2>
+      <p class="lead">Acompanhamos o café de perto, da seleção do grão verde ao último pingo do coado.</p>
+    </div>
+    <div class="steps">
+      <article class="step" style="--i:0">
+        <svg class="ill" viewBox="0 0 200 170" role="img" aria-label="Grão de café verde sobre folhas">
+          <defs><radialGradient id="gGreen" cx=".35" cy=".3" r=".9"><stop offset="0" stop-color="#b3c18f"/><stop offset="1" stop-color="#5E6B4E"/></radialGradient></defs>
+          <ellipse class="gshadow" cx="100" cy="152" rx="46" ry="7" fill="rgba(74,44,29,.2)"/>
+          <g class="leafL"><path d="M100 152C58 142 38 112 36 84C70 90 98 112 100 152Z" fill="#5E6B4E"/><path d="M100 152C70 130 56 110 44 90" stroke="#46523a" fill="none" stroke-width="2"/></g>
+          <g class="leafR"><path d="M100 152C142 142 162 112 164 84C130 90 102 112 100 152Z" fill="#74845f"/><path d="M100 152C130 130 144 110 156 90" stroke="#55644a" fill="none" stroke-width="2"/></g>
+          <g class="beanG"><g transform="rotate(16 100 78)"><ellipse cx="100" cy="78" rx="30" ry="44" fill="url(#gGreen)"/><path d="M98 36C112 62 88 94 102 120" fill="none" stroke="#3b4730" stroke-width="4.500" stroke-linecap="round"/></g></g>
+          <circle class="spark" cx="152" cy="40" r="3" fill="#C68B59"/><circle class="spark" style="animation-delay:-1s" cx="46" cy="56" r="2.500" fill="#C68B59"/><circle class="spark" style="animation-delay:-1.8s" cx="164" cy="116" r="2" fill="#5E6B4E"/>
+        </svg>
+        <span class="num">01</span>
+        <h3>O grão</h3>
+        <p>Colhido maduro e selecionado grão a grão, só entra na nossa torra quem passa de 85 pontos.</p>
+      </article>
+
+      <article class="step" style="--i:1">
+        <svg class="ill" viewBox="0 0 200 170" role="img" aria-label="Tambor de torra com grãos girando e escurecendo">
+          <path class="smk" d="M70 20C62 12 78 8 70 0" style="animation-delay:-1s"/><path class="smk" d="M100 22C92 14 108 10 100 2" style="animation-delay:-2.2s"/><path class="smk" d="M130 20C122 12 138 8 130 0" style="animation-delay:-3.2s"/>
+          <g><path class="fl f1" d="M76 164C68 152 82 148 78 138C90 146 94 156 86 164Z" fill="#e8883a"/><path class="fl f2" d="M96 166C88 152 104 148 100 136C112 146 116 158 108 166Z" fill="#f2b04e"/><path class="fl f3" d="M118 164C110 152 124 148 120 138C132 146 136 156 128 164Z" fill="#e8883a"/></g>
+          <rect x="50" y="134" width="100" height="8" rx="4" fill="#4A2C1D"/>
+          <circle cx="100" cy="78" r="57" fill="#2d1a11" stroke="#C68B59" stroke-width="5"/>
+          <circle cx="100" cy="78" r="48" fill="none" stroke="rgba(243,235,221,.18)" stroke-width="2"/>
+          <g class="spin">
+            <use class="rb" href="#bean" transform="translate(130 78) rotate(80)"/>
+            <use class="rb" href="#bean" transform="translate(115 52) rotate(20)"/>
+            <use class="rb" href="#bean" transform="translate(85 52) rotate(-30)"/>
+            <use class="rb" href="#bean" transform="translate(70 78) rotate(100)"/>
+            <use class="rb" href="#bean" transform="translate(85 104) rotate(50)"/>
+            <use class="rb" href="#bean" transform="translate(115 104) rotate(-60)"/>
+            <use class="rb" href="#bean" transform="translate(100 78) rotate(10)"/>
+          </g>
+          <path d="M62 52A44 44 0 0 1 98 34" fill="none" stroke="rgba(255,255,255,.35)" stroke-width="3" stroke-linecap="round"/>
+        </svg>
+        <span class="num">02</span>
+        <h3>A torra</h3>
+        <p>Torra própria, em lotes pequenos. Os grãos giram e ganham cor até o ponto exato de cada origem.</p>
+      </article>
+
+      <article class="step" style="--i:2">
+        <svg class="ill" viewBox="0 0 200 170" role="img" aria-label="Moedor com a manivela girando e café caindo moído">
+          <rect x="52" y="150" width="96" height="8" rx="4" fill="#4A2C1D"/>
+          <path d="M68 126H132L124 150H76Z" fill="#6a3f27" stroke="#C68B59" stroke-width="2"/>
+          <path class="pile" d="M78 128C88 112 112 112 122 128Z" fill="#3b2013"/>
+          <path d="M72 100H128L118 64H82Z" fill="#3a2318" stroke="#C68B59" stroke-width="2"/>
+          <rect x="76" y="58" width="48" height="8" rx="4" fill="#C68B59"/>
+          <use class="hb" href="#bean" transform="translate(90 52) rotate(20) scale(.8)" style="color:#6b3c22"/>
+          <use class="hb" style="animation-delay:-.6s;color:#7a4528" href="#bean" transform="translate(104 50) rotate(-30) scale(.8)"/>
+          <use class="hb" style="animation-delay:-1.2s;color:#5a3420" href="#bean" transform="translate(98 44) rotate(70) scale(.7)"/>
+          <circle class="gp" cx="94" cy="104" r="2.500" fill="#4a2a1a"/><circle class="gp" cx="100" cy="104" r="2.500" fill="#5a3420"/><circle class="gp" cx="106" cy="104" r="2.500" fill="#4a2a1a"/><circle class="gp" cx="97" cy="104" r="2" fill="#6b3c22"/><circle class="gp" cx="103" cy="104" r="2" fill="#5a3420"/>
+          <path d="M100 50V58" stroke="#C68B59" stroke-width="4"/>
+          <g class="crank"><line x1="100" y1="50" x2="142" y2="50" stroke="#C68B59" stroke-width="5" stroke-linecap="round"/><circle cx="146" cy="50" r="8" fill="#4A2C1D"/><circle cx="100" cy="50" r="6" fill="#F3EBDD" stroke="#C68B59" stroke-width="2"/></g>
+        </svg>
+        <span class="num">03</span>
+        <h3>A moagem</h3>
+        <p>Moído na hora, na granulometria certa para cada método, para o aroma chegar inteiro à xícara.</p>
+      </article>
+
+      <article class="step" style="--i:3">
+        <svg class="ill" viewBox="0 0 200 170" role="img" aria-label="Café sendo coado gota a gota">
+          <line class="pour" x1="100" y1="4" x2="100" y2="40" stroke="#8fa7ad" stroke-width="3.500" stroke-linecap="round"/>
+          <path d="M50 42H150L118 102H82Z" fill="#e7d4b6" stroke="#4A2C1D" stroke-width="2.500" stroke-linejoin="round"/>
+          <path d="M58 46H142L130 68H70Z" fill="#4A2C1D"/>
+          <circle class="bloom" cx="90" cy="54" r="3" fill="#8d5532"/><circle class="bloom" style="animation-delay:-.5s" cx="108" cy="58" r="2.500" fill="#8d5532"/><circle class="bloom" style="animation-delay:-1s" cx="122" cy="52" r="2" fill="#8d5532"/>
+          <path d="M76 78L90 98M100 76V100M124 78L110 98" stroke="rgba(74,44,29,.25)" stroke-width="2" stroke-linecap="round"/>
+          <rect x="86" y="102" width="28" height="8" rx="3" fill="#e7d4b6" stroke="#4A2C1D" stroke-width="2.500"/>
+          <rect class="liquid" x="70" y="132" width="60" height="30" fill="#5a3420"/>
+          <path d="M68 118H132L134 158Q134 164 128 164H72Q66 164 66 158Z" fill="rgba(255,255,255,.35)" stroke="#4A2C1D" stroke-width="2.500" stroke-linejoin="round"/>
+          <circle class="dr" cx="100" cy="114" r="3.500" fill="#4A2C1D"/><circle class="dr d2" cx="100" cy="114" r="3.500" fill="#4A2C1D"/><circle class="dr d3" cx="100" cy="114" r="3.500" fill="#4A2C1D"/>
+        </svg>
+        <span class="num">04</span>
+        <h3>O coado</h3>
+        <p>Água filtrada a 93 °C, vertida em círculos. O café escorre gota a gota e enche a casa de cheiro.</p>
+      </article>
+    </div>
+    <div class="track" aria-hidden="true"><i></i></div>
+  </div>
+</section>
+
+<!-- 3. CARDÁPIO -->
+<section id="cardapio" class="pad">
+  <div class="fog"></div><div class="fog b deep"></div>
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Cardápio</p>
+      <h2>Para cada humor, uma xícara.</h2>
+      <p class="lead">Quatro clássicos da casa, preparados na hora com os nossos grãos de torra própria.</p>
+    </div>
+    <div class="menu">
+      <div class="hang"><article class="mcard">
+        <svg class="mico" viewBox="0 0 84 84" aria-hidden="true">
+          <path class="ms" d="M30 30C24 22 36 18 30 8"/><path class="ms m2" d="M42 30C36 22 48 18 42 8"/><path class="ms m3" d="M54 30C48 22 60 18 54 8"/>
+          <path d="M18 38H62V44C62 58 54 66 40 66C26 66 18 58 18 44Z" fill="#4A2C1D"/>
+          <path d="M62 42C74 42 74 58 60 58" fill="none" stroke="#4A2C1D" stroke-width="5" stroke-linecap="round"/>
+          <ellipse cx="40" cy="38" rx="22" ry="5" fill="#C68B59"/><rect x="10" y="68" width="60" height="5" rx="2.500" fill="#5E6B4E"/>
+        </svg>
+        <h3>Espresso</h3>
+        <p>Encorpado, com crema densa e final de chocolate amargo. Simples e inteiro, do jeito que começa o dia.</p>
+        <div class="mtag"><span>Blend da casa</span><b>R$ 9</b></div>
+      </article></div>
+
+      <div class="hang"><article class="mcard">
+        <svg class="mico" viewBox="0 0 84 84" aria-hidden="true">
+          <path d="M20 12H64L50 40H34Z" fill="#e7d4b6" stroke="#4A2C1D" stroke-width="3" stroke-linejoin="round"/>
+          <path d="M26 16H58L54 26H30Z" fill="#4A2C1D"/>
+          <circle class="dr" cx="42" cy="44" r="3" fill="#4A2C1D"/><circle class="dr d2" cx="42" cy="44" r="3" fill="#4A2C1D"/>
+          <path d="M26 56H58L60 76H24Z" fill="rgba(94,107,78,.2)" stroke="#4A2C1D" stroke-width="3" stroke-linejoin="round"/>
+          <rect class="liquid" x="27" y="66" width="30" height="9" fill="#5a3420"/>
+        </svg>
+        <h3>Coado na V60</h3>
+        <p>Filtrado na hora, doce e limpo. Você escolhe o microlote do dia e a barista conta a história dele.</p>
+        <div class="mtag"><span>Microlote do dia</span><b>R$ 15</b></div>
+      </article></div>
+
+      <div class="hang"><article class="mcard">
+        <svg class="mico" viewBox="0 0 84 84" aria-hidden="true">
+          <path class="ms" d="M32 28C26 20 38 16 32 6"/><path class="ms m2" d="M46 28C40 20 52 16 46 6"/>
+          <path d="M16 34H64V42C64 58 54 68 40 68C26 68 16 58 16 42Z" fill="#C68B59"/>
+          <path d="M64 40C76 40 76 58 62 58" fill="none" stroke="#C68B59" stroke-width="5" stroke-linecap="round"/>
+          <ellipse cx="40" cy="34" rx="24" ry="6" fill="#F3EBDD" stroke="#4A2C1D" stroke-width="2"/>
+          <g class="foam"><path d="M28 34C32 30 38 38 42 32C46 28 50 36 54 33" fill="none" stroke="#4A2C1D" stroke-width="2.500" stroke-linecap="round"/></g>
+          <rect x="8" y="70" width="64" height="5" rx="2.500" fill="#4A2C1D"/>
+        </svg>
+        <h3>Cappuccino de Avelã</h3>
+        <p>Espresso, leite vaporizado e calda de avelã tostada, finalizado com cacau. Um abraço em forma de xícara.</p>
+        <div class="mtag"><span>Receita da casa</span><b>R$ 18</b></div>
+      </article></div>
+
+      <div class="hang"><article class="mcard">
+        <svg class="mico" viewBox="0 0 84 84" aria-hidden="true">
+          <path d="M20 14H64L58 74Q57.500 78 53 78H31Q26.500 78 26 74Z" fill="rgba(94,107,78,.18)" stroke="#4A2C1D" stroke-width="3" stroke-linejoin="round"/>
+          <path d="M23 34H61L57 72Q56.500 75 53 75H31Q27.500 75 27 72Z" fill="#4A2C1D"/>
+          <rect class="ice" x="32" y="36" width="14" height="14" rx="3" fill="rgba(243,235,221,.85)"/>
+          <rect class="ice i2" x="46" y="44" width="12" height="12" rx="3" fill="rgba(243,235,221,.7)"/>
+          <rect class="ice i3" x="34" y="54" width="12" height="12" rx="3" fill="rgba(243,235,221,.6)"/>
+          <path d="M54 4L48 36" stroke="#5E6B4E" stroke-width="4" stroke-linecap="round"/>
+        </svg>
+        <h3>Cold Brew</h3>
+        <p>Infusionado a frio por 18 horas. Refrescante, com notas cítricas e sem amargor, ideal para as tardes quentes.</p>
+        <div class="mtag"><span>Infusão a frio</span><b>R$ 16</b></div>
+      </article></div>
+    </div>
+
+    <div class="pastry">
+      <div class="arch"><img src="img/croissant.jpg" alt="Croissant artesanal mergulhado em uma xícara de café" loading="lazy"></div>
+      <div>
+        <p class="eyebrow">Confeitaria artesanal</p>
+        <h2>Para acompanhar, sem culpa nenhuma.</h2>
+        <p>Folhados de manteiga, bolos caseiros e pães de fermentação natural saem do forno todos os dias. Combinam com o café, com a conversa e com a chuva fina da manhã.</p>
+        <ul class="sweets">
+          <li>Croissant de manteiga</li><li>Bolo de fubá cremoso</li><li>Pão de queijo mineiro</li><li>Cookie de cacau</li><li>Torta do dia</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. ORIGENS -->
+<section id="origens" class="pad">
+  <div class="fog soft"></div>
+  <div class="wrap origins">
+    <svg class="map" viewBox="0 0 520 420" role="img" aria-label="Mapa estilizado de Minas Gerais com pontos de luz nas fazendas parceiras, concentradas no Sul de Minas">
+      <defs>
+        <linearGradient id="mgG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f8f0e0"/><stop offset="1" stop-color="#e2d0b0"/></linearGradient>
+      </defs>
+      <use href="#mgShape" fill="rgba(74,44,29,.16)" transform="translate(7 10)"/>
+      <use href="#mgShape" fill="url(#mgG)" stroke="#4A2C1D" stroke-opacity=".6" stroke-width="2" stroke-linejoin="round"/>
+      <g clip-path="url(#mgClip)">
+        <path class="contour" d="M60 250C130 230 190 250 260 220C330 190 400 230 470 190"/>
+        <path class="contour" d="M40 220C120 200 180 215 250 185C320 155 400 190 480 150" style="animation-duration:16s"/>
+        <path class="contour" d="M200 120C260 110 320 140 380 100C430 70 470 90 500 70" style="animation-duration:14s"/>
+        <path class="contour" d="M190 330C240 320 290 350 340 330C380 316 420 340 470 320" style="animation-duration:11s"/>
+        <path class="sul" d="M170 285L230 292L290 300L322 332L322 420L170 420Z"/>
+      </g>
+      <text class="mlabel" x="300" y="170" text-anchor="middle">Minas Gerais</text>
+      <text class="slabel" x="170" y="352" text-anchor="end">SUL DE MINAS</text>
+      <g transform="translate(279 373)" style="--i:0"><circle class="hl" style="--i:0" r="16"/><circle class="ring" style="--i:0" r="7"/><circle class="ring r2" style="--i:0" r="7"/><circle class="pdot" style="--i:0" r="6"/></g>
+      <g transform="translate(213 358)" style="--i:1"><circle class="hl" style="--i:1" r="16"/><circle class="ring" style="--i:1" r="7"/><circle class="ring r2" style="--i:1" r="7"/><circle class="pdot" style="--i:1" r="6"/></g>
+      <g transform="translate(243 342)" style="--i:2"><circle class="hl" style="--i:2" r="16"/><circle class="ring" style="--i:2" r="7"/><circle class="ring r2" style="--i:2" r="7"/><circle class="pdot" style="--i:2" r="6"/></g>
+      <g transform="translate(289 320)" style="--i:3"><circle class="hl" style="--i:3" r="16"/><circle class="ring" style="--i:3" r="7"/><circle class="ring r2" style="--i:3" r="7"/><circle class="pdot" style="--i:3" r="6"/></g>
+      <g transform="translate(194 227)" style="--i:4"><circle class="hl" style="--i:4" r="16"/><circle class="ring" style="--i:4" r="7"/><circle class="ring r2" style="--i:4" r="7"/><circle class="pdot" style="--i:4" r="6"/></g>
+      <g transform="translate(422 288)" style="--i:5"><circle class="hl" style="--i:5" r="16"/><circle class="ring" style="--i:5" r="7"/><circle class="ring r2" style="--i:5" r="7"/><circle class="pdot" style="--i:5" r="6"/></g>
+    </svg>
+    <div>
+      <p class="eyebrow">Origens</p>
+      <h2>De onde vem o nosso café.</h2>
+      <p class="lead">Compramos direto de produtores de Minas Gerais, com foco no Sul de Minas, onde a altitude, o clima fresco e a neblina da manhã dão doçura e acidez delicada aos grãos.</p>
+      <ul class="farms">
+        <li style="--i:0"><span class="fpin" style="--i:0"></span><div><strong>Carmo de Minas</strong><span>Serra da Mantiqueira · Bourbon Amarelo</span></div></li>
+        <li style="--i:1"><span class="fpin" style="--i:1"></span><div><strong>Poços de Caldas</strong><span>Planalto do Sul de Minas · Mundo Novo</span></div></li>
+        <li style="--i:2"><span class="fpin" style="--i:2"></span><div><strong>Machado</strong><span>Sul de Minas · Catuaí Vermelho</span></div></li>
+        <li style="--i:3"><span class="fpin" style="--i:3"></span><div><strong>Santo Antônio do Amparo</strong><span>Sul de Minas · Acaiá</span></div></li>
+        <li style="--i:4"><span class="fpin" style="--i:4"></span><div><strong>Patrocínio</strong><span>Cerrado Mineiro · Catuaí Amarelo</span></div></li>
+        <li style="--i:5"><span class="fpin" style="--i:5"></span><div><strong>Manhuaçu</strong><span>Matas de Minas · Catucaí</span></div></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 5. GRÃOS PARA LEVAR -->
+<section id="graos" class="pad">
+  <div class="bgimg" aria-hidden="true"><img src="img/pacotes.jpg" alt=""></div>
+  <div class="fog"></div>
+  <div class="wrap">
+    <div class="sec-head center">
+      <p class="eyebrow">Grãos para levar</p>
+      <h2>Leve a nossa torra para casa.</h2>
+      <p class="lead center">Torrados toda semana e embalados com válvula de aroma. Em grãos ou moídos para o seu método.</p>
+    </div>
+    <div class="bags">
+      <div class="bitem">
+        <div class="bscene" style="--sd:-4s">
+          <div class="bshadow"></div>
+          <div class="bag" style="--c:#5E6B4E;--c2:#4a5640">
+            <div class="face front"><div class="lab"><div class="lg">GRÃO <b>&amp;</b> NÉVOA<br>CAFÉ</div><div><div class="nm">Mantiqueira</div><div class="or">Carmo de Minas</div></div><div class="nt">Chocolate, caramelo e castanhas</div><div class="pt">86 pts · 250 g</div></div></div>
+            <div class="face back"><div class="lab bk"><div class="lg">TORRA PRÓPRIA</div><div class="nt">Bourbon Amarelo<br>Torra média<br>Lote semanal</div><div class="bar2"></div></div></div>
+            <div class="face side sl"><span class="sidetxt">MANTIQUEIRA</span></div>
+            <div class="face side sr"><span class="sidetxt">MANTIQUEIRA</span></div>
+          </div>
+        </div>
+        <div class="bcap"><strong>Mantiqueira</strong><span>Chocolate, caramelo e castanhas</span><em>R$ 46 · 250 g</em></div>
+      </div>
+      <div class="bitem">
+        <div class="bscene">
+          <div class="bshadow"></div>
+          <div class="bag" style="--c:#C68B59;--c2:#a8713f;--sd:-12s">
+            <div class="face front"><div class="lab"><div class="lg">GRÃO <b>&amp;</b> NÉVOA<br>CAFÉ</div><div><div class="nm">Cerrado</div><div class="or">Patrocínio</div></div><div class="nt">Mel, frutas amarelas e doçura</div><div class="pt">85 pts · 250 g</div></div></div>
+            <div class="face back"><div class="lab bk"><div class="lg">TORRA PRÓPRIA</div><div class="nt">Catuaí Amarelo<br>Torra média clara<br>Lote semanal</div><div class="bar2"></div></div></div>
+            <div class="face side sl"><span class="sidetxt" style="color:#4A2C1D">CERRADO</span></div>
+            <div class="face side sr"><span class="sidetxt" style="color:#4A2C1D">CERRADO</span></div>
+          </div>
+        </div>
+        <div class="bcap"><strong>Cerrado</strong><span>Mel, frutas amarelas e doçura</span><em>R$ 42 · 250 g</em></div>
+      </div>
+      <div class="bitem">
+        <div class="bscene">
+          <div class="bshadow"></div>
+          <div class="bag" style="--c:#4A2C1D;--c2:#331c11;--sd:-18s">
+            <div class="face front"><div class="lab"><div class="lg">GRÃO <b>&amp;</b> NÉVOA<br>CAFÉ</div><div><div class="nm">Matas</div><div class="or">Manhuaçu</div></div><div class="nt">Cacau, laranja e corpo sedoso</div><div class="pt">87 pts · 250 g</div></div></div>
+            <div class="face back"><div class="lab bk"><div class="lg">TORRA PRÓPRIA</div><div class="nt">Catucaí<br>Torra média escura<br>Lote semanal</div><div class="bar2"></div></div></div>
+            <div class="face side sl"><span class="sidetxt">MATAS</span></div>
+            <div class="face side sr"><span class="sidetxt">MATAS</span></div>
+          </div>
+        </div>
+        <div class="bcap"><strong>Matas</strong><span>Cacau, laranja e corpo sedoso</span><em>R$ 48 · 250 g</em></div>
+      </div>
+    </div>
+    <div class="buy">
+      <p>Prefere outro método ou quer o seu moído na hora? A gente prepara e deixa separado para você retirar.</p>
+      <a class="btn btn-primary pulse-btn" href="https://wa.me/5551999990000?text=Ol%C3%A1!%20Quero%20levar%20gr%C3%A3os%20da%20Gr%C3%A3o%20%26%20N%C3%A9voa." target="_blank" rel="noopener">Pedir pelo WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<!-- 6. DEPOIMENTOS -->
+<section id="depoimentos" class="pad">
+  <div class="fog soft"></div>
+  <div class="wrap testi">
+    <div class="portrait">
+      <svg class="pv" viewBox="0 0 70 70" fill="none" stroke="#C68B59" stroke-linecap="round" stroke-width="5" aria-hidden="true">
+        <path class="st" style="stroke:#C68B59;animation-duration:4.4s" d="M20 66C10 54 30 46 20 30"/><path class="st" style="stroke:#C68B59;animation-duration:5.2s;animation-delay:-2s" d="M36 66C26 54 46 46 36 30"/><path class="st" style="stroke:#C68B59;animation-duration:4.8s;animation-delay:-3.4s" d="M52 66C42 54 62 46 52 30"/>
+      </svg>
+      <div class="orbit" aria-hidden="true"></div>
+      <div class="arch"><img src="img/grao.jpg" alt="Grão de café torrado em close" loading="lazy"></div>
+    </div>
+    <div>
+      <p class="eyebrow">Depoimentos</p>
+      <h2 style="margin-bottom:26px">Quem passa por aqui, volta.</h2>
+      <span class="qmark" aria-hidden="true">“</span>
+      <div class="slides" id="slides" aria-live="off">
+        <div class="slide on"><div class="stars" aria-label="5 de 5 estrelas"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+          <blockquote>O melhor coado que já tomei. Dá para sentir a diferença quando o café é torrado ali mesmo, na hora.</blockquote>
+          <div class="who"><i>M</i><div><b>Mariana Teixeira</b><span>Cliente desde a abertura</span></div></div></div>
+        <div class="slide"><div class="stars" aria-label="5 de 5 estrelas"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+          <blockquote>Entrei por causa do cheiro e fiquei a tarde inteira. O cappuccino de avelã é um abraço.</blockquote>
+          <div class="who"><i>R</i><div><b>Rafael Antunes</b><span>Visita toda semana</span></div></div></div>
+        <div class="slide"><div class="stars" aria-label="5 de 5 estrelas"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+          <blockquote>Levo sempre o Mantiqueira para casa. Chocolate e caramelo, do jeitinho que a barista descreveu.</blockquote>
+          <div class="who"><i>C</i><div><b>Camila Fontes</b><span>Assina os grãos do mês</span></div></div></div>
+        <div class="slide"><div class="stars" aria-label="5 de 5 estrelas"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+          <blockquote>Lugar para conversar sem pressa. Atendimento atencioso, e o croissant com café é imbatível.</blockquote>
+          <div class="who"><i>A</i><div><b>Anselmo Pires</b><span>Cliente da manhã</span></div></div></div>
+      </div>
+      <div class="dots" id="dots" role="tablist" aria-label="Escolher depoimento">
+        <button class="on" role="tab" aria-label="Depoimento 1"><i></i></button>
+        <button role="tab" aria-label="Depoimento 2"><i></i></button>
+        <button role="tab" aria-label="Depoimento 3"><i></i></button>
+        <button role="tab" aria-label="Depoimento 4"><i></i></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 7. FAIXA INFINITA -->
+<div class="marquee" aria-label="Torra própria, cafés especiais 85+ pontos, métodos filtrados e confeitaria artesanal">
+  <div class="mq-track" aria-hidden="true">
+    <span>Torra própria<i>●</i>Cafés especiais 85+ pontos<i>●</i>Métodos filtrados<i>●</i>Confeitaria artesanal<i>●</i></span>
+    <span>Torra própria<i>●</i>Cafés especiais 85+ pontos<i>●</i>Métodos filtrados<i>●</i>Confeitaria artesanal<i>●</i></span>
+  </div>
+</div>
+
+<!-- 8. CTA -->
+<section id="contato" class="pad cta">
+  <div class="fog"></div><div class="fog b deep"></div>
+  <div class="ripples" aria-hidden="true"><i></i><i></i><i></i></div>
+  <div class="wrap">
+    <p class="eyebrow" style="justify-content:center">Venha nos visitar</p>
+    <h2>Vem tomar um café com calma.</h2>
+    <p class="lead">A casa abre cedo, com café passando e pão saindo do forno. Reserve um tempo só para você.</p>
+    <a class="btn btn-primary pulse-btn" href="https://www.google.com/maps/search/?api=1&amp;query=Av.+Emancipa%C3%A7%C3%A3o+640+Tramanda%C3%AD+RS" target="_blank" rel="noopener">Ver localização</a>
+  </div>
+</section>
+</main>
+
+<!-- 9. RODAPÉ -->
+<footer>
+  <div class="fog"></div>
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <div class="flogo">
+          <svg class="steamF" viewBox="0 0 110 100" fill="none" stroke="#F3EBDD" stroke-linecap="round" stroke-width="5" aria-hidden="true">
+            <g style="filter:blur(1.5px)">
+              <path class="st" style="animation-duration:5s;animation-delay:-1s" d="M20 96C8 80 34 68 20 48C10 34 28 24 20 8"/>
+              <path class="st" style="animation-duration:6s;animation-delay:-3s" d="M34 96C22 80 48 68 34 48C24 34 42 24 34 8"/>
+              <path class="st" style="animation-duration:5.4s;animation-delay:-4.2s" d="M48 96C36 80 62 68 48 48C38 34 56 24 48 8"/>
+            </g>
+          </svg>
+          <a class="logo" href="#hero" aria-label="Grão &amp; Névoa Café">
+            <span class="mark"><svg viewBox="0 0 48 40" aria-hidden="true"><use href="#cup"/></svg></span>
+            <span class="logo-t">GRÃO <b>&amp;</b> NÉVOA<small>CAFÉ</small></span>
+          </a>
+        </div>
+        <p>Cafés especiais de torra própria, métodos filtrados e confeitaria artesanal. Cada xícara tem uma origem.</p>
+      </div>
+      <div>
+        <h4>Endereço</h4>
+        <ul><li>Av. Emancipação, 640<br>Centro, Tramandaí/RS<br>CEP 95590-000</li></ul>
+      </div>
+      <div>
+        <h4>Horários</h4>
+        <ul><li>Segunda a sexta<br><strong>7h às 19h</strong></li><li>Sábados, domingos e feriados<br><strong>8h às 20h</strong></li></ul>
+      </div>
+      <div>
+        <h4>Fale com a gente</h4>
+        <ul>
+          <li><a href="https://instagram.com/graoenevoacafe" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.500" cy="6.500" r="1" fill="currentColor" stroke="none"/></svg>@graoenevoacafe</a></li>
+          <li><a href="https://wa.me/5551999990000" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>(51) 99999-0000</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="copy"><span>© <span id="ano">2026</span> Grão &amp; Névoa Café. Todos os direitos reservados.</span><span>Torra própria · Cafés especiais</span></div>
+  </div>
+</footer>
+
+<a class="wpp" href="https://wa.me/5551999990000?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Gr%C3%A3o%20%26%20N%C3%A9voa." target="_blank" rel="noopener" aria-label="Falar pelo WhatsApp">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+</a>
+
+<script>
+(function(){
+  var rnd=function(a,b){return a+Math.random()*(b-a)};
+
+  /* grãos de café caindo */
+  var beans=document.getElementById('beans');
+  var nBeans=window.innerWidth<700?14:26;
+  for(var i=0;i<nBeans;i++){
+    var b=document.createElement('span');
+    b.className='bean'+(Math.random()<.4?' far':'');
+    b.style.left=rnd(0,100)+'%';
+    b.style.fontSize=rnd(9,19)+'px';
+    b.style.setProperty('--d',rnd(11,24)+'s');
+    b.style.setProperty('--dl',(-rnd(0,24))+'s');
+    b.style.setProperty('--dx',rnd(-90,90)+'px');
+    b.style.setProperty('--rot',(Math.random()<.5?-1:1)*rnd(360,900)+'deg');
+    beans.appendChild(b);
+  }
+
+  /* partículas de luz no hero */
+  var dust=document.getElementById('dust');
+  for(var j=0;j<22;j++){
+    var m=document.createElement('span');
+    m.className='mote';
+    m.style.left=rnd(0,100)+'%';
+    m.style.setProperty('--s',rnd(2,5)+'px');
+    m.style.setProperty('--d',rnd(12,26)+'s');
+    m.style.setProperty('--dl',(-rnd(0,26))+'s');
+    m.style.setProperty('--dx',rnd(-60,60)+'px');
+    dust.appendChild(m);
+  }
+
+  /* carrossel de depoimentos, troca a cada 5 s */
+  var slides=[].slice.call(document.querySelectorAll('#slides .slide'));
+  var dots=[].slice.call(document.querySelectorAll('#dots button'));
+  var cur=0,timer;
+  function go(n){
+    slides[cur].classList.remove('on');dots[cur].classList.remove('on');
+    cur=(n+slides.length)%slides.length;
+    slides[cur].classList.add('on');dots[cur].classList.add('on');
+  }
+  function start(){clearInterval(timer);timer=setInterval(function(){go(cur+1)},5000)}
+  dots.forEach(function(d,i){d.addEventListener('click',function(){go(i);start()})});
+  start();
+
+  document.getElementById('ano').textContent=new Date().getFullYear();
+})();
+</script>
+</body>
+</html>
